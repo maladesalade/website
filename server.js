@@ -17,10 +17,9 @@ app.use(
 );
 app.use(morgan("tiny"));
 app.use(express.static("build/client", { maxAge: "1h" }));
-import(BUILD_PATH).then((mod) => mod.app).then((a) => {
-  app.use(a);
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+import(BUILD_PATH).then((mod) => {
+  app.use(mod.app);
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
 });
